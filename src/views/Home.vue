@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Catalogue :data = "data"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import datasets from "../../data/db.json";
+import Catalogue from "../components/Catalogue.vue"
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  components: { Catalogue },
+  data() {
+    return {
+      data : datasets
+    }
   }
+
 }
 </script>
