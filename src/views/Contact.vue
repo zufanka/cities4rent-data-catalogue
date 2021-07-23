@@ -1,8 +1,10 @@
 <template lang="html">
   <h1>Contact us</h1>
-  <p>put an email contact here?</p>
-  <p>Or even more dragons?</p>
-  <img src="https://vignette.wikia.nocookie.net/villainstournament/images/e/ed/Ommadon's_Dragon_Army.jpg/revision/latest?cb=20161210015223" alt="moregragons">
+  <div class="contact highlightLink">
+    <p>Interested in working with us?</p>
+    <p>Contact us at <a href="#">email@dummy.eu</a></p>
+  </div>
+
 </template>
 
 <script>
@@ -10,5 +12,7 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
+
+
 </style>

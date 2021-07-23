@@ -1,13 +1,20 @@
 <template lang="html">
-<a :href="dataset.link">
+<a :href="dataset.link" target="_blank">
   <div class="dataset" @mouseover="isHovering = true"  @mouseout="isHovering = false" >
     <h2>{{ dataset.name }} in {{ dataset.city }}</h2>
-    <p> {{ dataset.status}}</p>
-    <div class="topic">
-      {{ dataset.topic}}
+    <div class="status cardLabel">{{dataset.status}}</div>
+    <p class="cardDescription">
+    <div v-if="!dataset.description">
+      Get in touch with us if you like to find out more or help us collect this data.
     </div>
-    <div v-if="dataset.mreadable" class="mreadable">
-      machine readable
+    <div v-else>
+      {{ dataset.description}}
+    </div></p>
+    <div class="leftLabels">
+      <div class="topic cardLabel">{{dataset.topic}}</div>
+    </div>
+    <div v-if="dataset.mreadable" class="rightLabels">
+      <div class="mreadable cardLabel">machine readable</div>
     </div>
   </div>
 </a>
@@ -26,34 +33,52 @@ export default {
 
 <style lang="css">
 
-h2 {
-  font-size: 1.3em;
+.dataset h2 {
+  font-size: 1.2em;
   text-align: left
 }
 
 a {
   text-decoration: none;
   color:inherit;
+
+}
+
+.leftLabels {
+  float:left;
+  max-width: 30%;
+  }
+
+.rightLabels {
+  float:right;
+  max-width: 30%;
+}
+
+.cardLabel {
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  font-size: 0.8em
 }
 
 .topic {
-  text-align: center;
-  background: #913644;
+  background: #F49D37;
+  color: black;
+}
+
+.status {
+  background: #3F88C5;
   color: white;
-  max-width: 30%;
-  padding: 5px;
-  float:left;
-  border-radius: 10px;
+  max-width: 30%
 }
 
 .mreadable {
-  text-align: center;
-  background: #c6b52f;
+  background: #DC143C;
   color: white;
-  max-width: 30%;
-  padding: 5px;
-  float:right;
-  border-radius: 10px;
+}
+
+.cardDescription {
+  text-align: left;
 }
 
 </style>

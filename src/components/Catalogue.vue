@@ -1,5 +1,15 @@
 <template lang="html">
+  <div class="intro">
+    <p>
+      Jujubes ice cream brownie biscuit jelly beans. Bonbon ice cream caramels pie brownie jelly. Chupa chups I love tootsie roll carrot cake I love I love macaroon. Candy canes pudding macaroon cotton candy tootsie roll candy pie chocolate. Pudding topping halvah powder. Soufflé chocolate gingerbread bonbon lemon drops dragée danish donut. Gingerbread powder wafer macaroon pie cupcake sweet roll.
+    </p>
+    <p>
+      Dessert fruitcake gummi bears. Cake gummi bears dragée. Icing soufflé I love jelly beans soufflé. Chocolate cake I love sweet roll lemon drops tootsie roll lemon drops jelly. Chocolate cake gummi bears sweet liquorice halvah. Oat cake I love I love macaroon chupa chups cotton candy. Donut dragée candy canes apple pie danish gummies macaroon liquorice. Dragée icing dessert. Danish pastry chocolate bar cookie cake chocolate cake dragée. Sugar plum sesame snaps tiramisu fruitcake dessert brownie chupa chups.
+    </p>
+
+  </div>
   <div class="filteringOptions">
+    <h2 class="browse">Browse our data catalogue</h2>
     <div class="filter">
       <label>Select topic</label>
       <select v-model="topic">
@@ -9,7 +19,7 @@
       </select>
     </div>
     <div class="filter">
-      <label>Select country</label>
+      <label>Show cities from</label>
       <select v-model="country">
         <option v-for="country in uniqueCountries" :key="country">
           {{ country }}
@@ -17,10 +27,18 @@
       </select>
     </div>
     <div class="filter">
-      <label class="filter">Select city</label>
+      <label class="filter">Select a city</label>
       <select v-model="city">
         <option v-for="city in uniqueCities" :key="city">
           {{ city }}
+        </option>
+      </select>
+    </div>
+    <div class="filter">
+      <label>Select on data availability</label>
+      <select v-model="status">
+        <option v-for="status in uniqueStatuses" :key="status">
+          {{ status }}
         </option>
       </select>
     </div>
@@ -29,23 +47,32 @@
     </div>
 
   </div>
-
-  <div v-for="dataset in computed_items" :key="dataset.id" class="blocks">
-    <CatalogueItem :dataset="dataset" />
+    <div>
+      <div class="blocksWrapper">
+        <div v-for="dataset in computed_items" :key="dataset.id" class="blocks">
+          <CatalogueItem :dataset="dataset" />
+        </div>
+      </div>
+      <div class="sidebar" v-if="topic">
+        <SideBar :topic="topic"/>
+      </div>
   </div>
+
 </template>
 
 <script>
 import CatalogueItem from "../components/CatalogueItem.vue"
+import SideBar from "../components/SideBar.vue"
 
 export default {
   props: ['data'],
-  components: {CatalogueItem},
+  components: {CatalogueItem, SideBar},
   data() {
     return {
       topic: '',
       country: '',
       city: '',
+      status: '',
     }
   },
   methods: {
@@ -53,12 +80,19 @@ export default {
       this.topic = ''
       this.country = ''
       this.city = ''
+      this.status = ''
 
     }
   },
   computed: {
     uniqueTopics() {
       let ut = [...new Set(this.data.map(item => item.topic))]
+      // console.log(ut)
+      return ut
+    },
+
+    uniqueStatuses() {
+      let ut = [...new Set(this.data.map(item => item.status))]
       // console.log(ut)
       return ut
     },
@@ -105,7 +139,8 @@ export default {
     computed_items() {
       let filterTopic= this.topic,
           filterCountry= this.country,
-          filterCity = this.city
+          filterCity = this.city,
+          filterStatus = this.status
       return this.data.filter(function(item){
         let filtered = true
 
@@ -116,6 +151,12 @@ export default {
         if(filtered){
           if(filterCountry && filterCountry.length > 0){
             filtered = item.country == filterCountry
+          }
+        }
+
+        if(filtered){
+          if(filterStatus && filterStatus.length > 0){
+            filtered = item.status == filterStatus
           }
         }
 
@@ -138,8 +179,29 @@ export default {
 </script>
 
 <style lang="css">
+
+
+.blocksWrapper {
+  display: inline-block;
+  width: 78%;
+}
+
+.intro {
+  max-width: 80%;
+  margin: 0 auto 40px;
+  padding: 20px 0 0 0;
+}
+
+.browse {
+  text-align: center;
+  text-transform: uppercase;
+  background: #032b44;
+  color: white;
+  padding: 5px
+}
+
 .reset {
-  background: #2c3e50;
+  background: #032b44;
   color: white;
   font-weight: bold;
   padding: 10px;
@@ -166,20 +228,22 @@ option {
   min-width: 100px
 }
 
+
+
 .blocks {
   display: inline-block;
   vertical-align: top;
-  width: 30%;
+  width: 25%;
   min-height: 150px;
   padding: 10px;
   border-radius: 10px;
   margin: 10px 10px;
-  background: #eee;
+  background: #EEF0EB;
   cursor: pointer;
 }
 
 .blocks:hover {
-  background: #ddd;
+  background: #E8EBE4;
 }
 
 </style>

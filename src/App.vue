@@ -1,4 +1,5 @@
 <template>
+  <img class="logo" src="../assets/logo.png" alt="logo">
   <div id="nav">
     <router-link to="/">Catalogue</router-link>
     <router-link to="/about">About</router-link>
@@ -9,12 +10,32 @@
 </template>
 
 <style>
+
+.logo {
+  float: left;
+  max-width: 180px;
+  margin: 10px 0 10px 10px;
+
+}
+
+.highlightLink a {
+  color: #DC143C;
+  padding: 4px;
+}
+
+.highlightLink a:hover {
+  background: #DC143C;
+  color: white;
+  padding: 4px;
+  border-radius: 4px
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #032b44;
 }
 
 #nav {
@@ -23,18 +44,15 @@
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #032b44;
   margin: 25px 0;
   padding: 10px;
 }
 
 #nav a.router-link-exact-active {
   color: #fff;
-  background: crimson;
+  background: #DC143C;
   border-radius: 4px;
   text-align: center;
-
-
-
 }
 </style>
