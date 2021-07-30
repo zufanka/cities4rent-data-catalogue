@@ -1,18 +1,28 @@
 <template lang="html">
-  <div class="intro">
+  <div class="intro contact highlightLink">
     <p>
-      Jujubes ice cream brownie biscuit jelly beans. Bonbon ice cream caramels pie brownie jelly. Chupa chups I love tootsie roll carrot cake I love I love macaroon. Candy canes pudding macaroon cotton candy tootsie roll candy pie chocolate. Pudding topping halvah powder. Soufflé chocolate gingerbread bonbon lemon drops dragée danish donut. Gingerbread powder wafer macaroon pie cupcake sweet roll.
+      When you are researching a housing topic, it might not be immediately obvious what kind of data you need to get a comprehensive view about the topic you are investigating, where you can find those data, or even whether the data are publicly available at all.
     </p>
     <p>
-      Dessert fruitcake gummi bears. Cake gummi bears dragée. Icing soufflé I love jelly beans soufflé. Chocolate cake I love sweet roll lemon drops tootsie roll lemon drops jelly. Chocolate cake gummi bears sweet liquorice halvah. Oat cake I love I love macaroon chupa chups cotton candy. Donut dragée candy canes apple pie danish gummies macaroon liquorice. Dragée icing dessert. Danish pastry chocolate bar cookie cake chocolate cake dragée. Sugar plum sesame snaps tiramisu fruitcake dessert brownie chupa chups.
+      Based on the <a href="https://cities4rent.journalismarena.media">Cities for Rent cross-border investigation</a>, the <a href="https://journalismarena.eu/housing">Arena Housing Project</a> has launched this Housing Data Catalogue as a collaborative effort to help investigative journalists and other researchers working on housing.
+    </p>
+    <p>
+      Pick the topic of your interest and a country or a city, and the catalogue will show you which data you require, the links to the datasets that are publicly available datasets, and information about the datasets that are not available and which we are building from scratch at the Housing Project.
+    </p>
+    <p>
+      When you select a topic, the catalogue will also show you a box explaining why those are the data you need to research that topic.
+    </p>
+    <p>
+      You can read more <a href="/About">about the Arena Housing Project</a> and the Housing Data Catalogue and about our <a href="/Methodology">methodology</a>, and if you have any question, comment or criticism, or if you want to contribute data to the catalogue, do <a href="/Contact">get in touch</a>.
     </p>
 
   </div>
   <div class="filteringOptions">
     <h2 class="browse">Browse our data catalogue</h2>
     <div class="filter">
-      <label>Select topic</label>
+      <label>Select a topic</label>
       <select v-model="topic">
+        <option @click="topic = ''" >--- All ---</option>
         <option v-for="topic in uniqueTopics" :key="topic">
           {{ topic }}
         </option>
@@ -21,6 +31,7 @@
     <div class="filter">
       <label>Show cities from</label>
       <select v-model="country">
+        <option @click="country = ''">--- All ---</option>
         <option v-for="country in uniqueCountries" :key="country">
           {{ country }}
         </option>
@@ -29,6 +40,7 @@
     <div class="filter">
       <label class="filter">Select a city</label>
       <select v-model="city">
+        <option @click="city = ''">--- All ---</option>
         <option v-for="city in uniqueCities" :key="city">
           {{ city }}
         </option>
@@ -37,24 +49,22 @@
     <div class="filter">
       <label>Select on data availability</label>
       <select v-model="status">
+        <option @click="status = ''">--- All ---</option>
         <option v-for="status in uniqueStatuses" :key="status">
           {{ status }}
         </option>
       </select>
     </div>
     <div>
-        <button class="reset" @click="resetFilters">Reset Filters</button>
+        <button class="reset" @click="resetFilters">Reset all filters</button>
     </div>
-
   </div>
-    <div>
-      <div class="blocksWrapper">
-        <div v-for="dataset in computed_items" :key="dataset.id" class="blocks">
-          <CatalogueItem :dataset="dataset" />
-        </div>
-      </div>
-      <div class="sidebar" v-if="topic">
+  <div class="sidebar" v-if="topic">
         <SideBar :topic="topic"/>
+    </div>
+  <div class="blocksWrapper">
+    <div v-for="dataset in computed_items" :key="dataset.id" class="blocks">
+        <CatalogueItem :dataset="dataset" />
       </div>
   </div>
 
@@ -63,10 +73,11 @@
 <script>
 import CatalogueItem from "../components/CatalogueItem.vue"
 import SideBar from "../components/SideBar.vue"
+import {showAt, hideAt} from 'vue-breakpoints'
 
 export default {
   props: ['data'],
-  components: {CatalogueItem, SideBar},
+  components: {CatalogueItem, SideBar, hideAt, showAt},
   data() {
     return {
       topic: '',
@@ -88,13 +99,14 @@ export default {
     uniqueTopics() {
       let ut = [...new Set(this.data.map(item => item.topic))]
       // console.log(ut)
-      return ut
+      return ut.sort()
     },
 
     uniqueStatuses() {
       let ut = [...new Set(this.data.map(item => item.status))]
       // console.log(ut)
-      return ut
+
+      return ut.sort()
     },
 
     uniqueCountries() {
@@ -112,7 +124,9 @@ export default {
 
       let ut = [...new Set(data.map(item => item.country))]
       // console.log(ut)
-      return ut
+
+      return ut.sort()
+
     },
 
     uniqueCities() {
@@ -133,7 +147,7 @@ export default {
       let ut = [...new Set(data.map(item => item.city))]
       //console.log(this.data.map(item => item.city))
 
-      return ut
+      return ut.sort()
     },
 
     computed_items() {
@@ -141,6 +155,7 @@ export default {
           filterCountry= this.country,
           filterCity = this.city,
           filterStatus = this.status
+
       return this.data.filter(function(item){
         let filtered = true
 
@@ -152,6 +167,7 @@ export default {
           if(filterCountry && filterCountry.length > 0){
             filtered = item.country == filterCountry
           }
+
         }
 
         if(filtered){
@@ -183,7 +199,7 @@ export default {
 
 .blocksWrapper {
   display: inline-block;
-  width: 78%;
+  width: 80%;
 }
 
 .intro {
@@ -195,8 +211,8 @@ export default {
 .browse {
   text-align: center;
   text-transform: uppercase;
-  background: #032b44;
-  color: white;
+  background: #EEF0EB;
+  color: #032b44;
   padding: 5px
 }
 
@@ -227,8 +243,6 @@ option {
   margin: 0 5px;
   min-width: 100px
 }
-
-
 
 .blocks {
   display: inline-block;

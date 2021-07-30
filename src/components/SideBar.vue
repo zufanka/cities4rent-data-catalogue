@@ -41,7 +41,7 @@ export default {
 <style lang="css">
 .sidebar {
   display: inline-block;
-  width:19%;
+  width:80%;
   vertical-align: top;
   border: 1px solid black;
   margin: 0 15px 0 0;

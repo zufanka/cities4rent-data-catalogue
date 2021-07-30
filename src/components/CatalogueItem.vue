@@ -10,11 +10,9 @@
     <div v-else>
       {{ dataset.description}}
     </div></p>
-    <div class="leftLabels">
-      <div class="topic cardLabel">{{dataset.topic}}</div>
-    </div>
-    <div v-if="dataset.mreadable" class="rightLabels">
-      <div class="mreadable cardLabel">machine readable</div>
+    <div class="labelWrap">
+      <div class="topic cardLabel leftLabels">{{dataset.topic}}</div>
+      <div v-if="dataset.mreadable" class="mreadable cardLabel rightLabels">machine readable</div>
     </div>
   </div>
 </a>
@@ -32,6 +30,10 @@ export default {
 </script>
 
 <style lang="css">
+.labelWrap {
+  display: flex;
+  justify-content: space-between;
+}
 
 .dataset h2 {
   font-size: 1.2em;
@@ -45,12 +47,12 @@ a {
 }
 
 .leftLabels {
-  float:left;
+  text-align:left;
   max-width: 30%;
   }
 
 .rightLabels {
-  float:right;
+  text-align:right;
   max-width: 30%;
 }
 

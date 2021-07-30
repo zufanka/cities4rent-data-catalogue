@@ -1,5 +1,5 @@
 <template>
-  <img class="logo" src="../assets/logo.png" alt="logo">
+  <img class="logo" :src="img" alt="logo">
   <div id="nav">
     <router-link to="/">Catalogue</router-link>
     <router-link to="/about">About</router-link>
@@ -8,6 +8,17 @@
   </div>
   <router-view/>
 </template>
+
+<script>
+export default{
+  data() {
+    return {
+      img: '../assets/logo.png',
+    }
+  },
+}
+
+</script>
 
 <style>
 
