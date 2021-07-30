@@ -1,5 +1,4 @@
 <template lang="html">
-    <p>{{ topic }}</p>
     <h2>{{ activeTopic[0].headline }}</h2>
     <p>{{ activeTopic[0].description }}</p>
 </template>
@@ -41,12 +40,13 @@ export default {
 <style lang="css">
 .sidebar {
   display: inline-block;
-  width:80%;
+  width:85%;
   vertical-align: top;
   border: 1px solid black;
   margin: 0 15px 0 0;
   padding: 0 10px;
   border-radius: 4px;
   text-align: left;
+  font-size: 0.9em
 }
 </style>

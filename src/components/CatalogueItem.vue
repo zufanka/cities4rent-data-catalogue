@@ -60,7 +60,8 @@ a {
   text-align: center;
   padding: 5px;
   border-radius: 10px;
-  font-size: 0.8em
+  font-size: 0.8em;
+  overflow: auto;
 }
 
 .topic {
